@@ -121,10 +121,6 @@
         audio.volume = 0.5;
         
         const playBtn = document.getElementById('playBtn');
-        const progressContainer = document.getElementById('progressContainer');
-        const progress = document.getElementById('progress');
-        const volumeSlider = document.getElementById('volumeSlider');
-        
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
@@ -134,6 +130,10 @@
                 playBtn.innerHTML = '▶';
             }
         });
+        
+        const progressContainer = document.getElementById('progressContainer');
+        const progress = document.getElementById('progress');
+        const volumeSlider = document.getElementById('volumeSlider');
         
         audio.addEventListener('timeupdate', () => {
             const percent = (audio.currentTime / audio.duration) * 100;

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="assets/image/peach-and-goma-peach.gif" type="image/gif">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mylove</title>
+    <link rel="stylesheet" href="design/design.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Special Message For You</h1>
+        <p class="instructions">Open mo hihi</p>
+        
+        <div class="envelope" id="envelope">
+            <div class="envelope-front">
+            </div>
+            <div class="envelope-flap"></div>
+            <div class="stamp">🤍</div>
+            <div class="envelope-content">Click to Open</div>
+        </div>
+        
+
+        <div class="letter" id="letter">
+            <div class="letter-header">
+                <h2>Happy Birthday Mylove🎂❤️ </h2>
+                <div class="letter-date" id="current-date">September 19, 2025</div>
+            </div>
+            
+            <div class="letter-body">
+                <p>Hi mylove,</p>
+                <p>First of all, happy birthday! I’m so happy that we get to celebrate your special day together. My wish for you is that you achieve your dream job and meet good friends who will be with you on your journey.</p>
+                <p>Also, happy 9th monthsary, my love! Hindi natin akalain na aabot tayo ng ganito katagal kahit lagi tayong may tampuhan. Ang galing kasi kahit may away, bati hindi tayo nag sasawa sa isa't isa— parang monthly routine na natin hahaha. Ang unique ng trip natin, 
+                    pero I hope in the future mas less na yung away natin. I promise I’ll try to be more chill and control my emotion na hehe. </p>
+                <p>hindi ko na alam sasabihin ko hahahah, basta i promise na I will never stop loving you and hindi ako mag sasawa makipag-away sayo also wag mo isip na mag cheat ako sayo hindi ako ganon eh </p>
+                <p>That’s all, my love. I Love You, happy birthday! ❤️</p>
+                <div class="love-message">
+                    <h2>I Love You</h2>
+                </div>
+            </div>
+            
+            <div class="letter-signature">
+                <div class="signature">Mylo/Brow</div>
+                <div class="sender-details">
+                    <p>From</p>
+                    <p>Carlo</p>
+                </div>
+            </div>
+            
+            <button class="btn-close" onclick="closeLetter()">Close Letter</button>
+            <button class="btn-print" onclick="printLetter()">Print Letter</button>       
+             </div>
+    </div>
+
+
+     <div class="music-player">
+        <div class="song-info">
+            <div class="song-title">now i know - Sarah Kang</div>
+            <div class="song-artist">Music Player</div>
+        </div>
+        <div class="player-controls">
+            <button class="play-btn" id="playBtn">▶</button>
+            <div class="progress-container" id="progressContainer">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        <div class="volume-container">
+            <span>🔈</span>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            <span>🔊</span>
+        </div>
+    </div>   
+
+    <div class="star" id="star"></div>
+    <div id="star-cursor" style="position: absolute; pointer-events: none; font-size: 24px;">
+    </div>
+
+    
+    
+    <script>
+        
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        
+        function openEnvelope() {
+            envelope.classList.add('open');
+            
+            setTimeout(() => {
+                letter.classList.add('visible');
+            }, 500);
+        }
+        
+        function closeLetter() {
+            letter.classList.remove('visible');
+            
+            setTimeout(() => {
+                envelope.classList.remove('open');
+            }, 500);
+        }
+
+        function printLetter() {
+            window.print();
+        }
+        envelope.addEventListener('click', openEnvelope);
+
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+     // Audio element
+        const audio = new Audio();
+        audio.src = 'assets/music/now-i-know.mp3';
+        audio.volume = 0.5;
+        
+        const playBtn = document.getElementById('playBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progress = document.getElementById('progress');
+        const volumeSlider = document.getElementById('volumeSlider');
+        
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '❚❚';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '▶';
+            }
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = `${percent}%`;
+        });
+        
+        progressContainer.addEventListener('click', (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        });
+        
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value;
+        });
+        
+        audio.addEventListener('ended', () => {
+            playBtn.innerHTML = '▶';
+            progress.style.width = '0%';
+        });
+        
+        audio.addEventListener('play', () => {
+            playBtn.innerHTML = '❚❚';
+        });
+        audio.addEventListener('pause', () => {
+            playBtn.innerHTML = '▶';
+        });
+        
+        const starCursor = document.getElementById('star-cursor');
+        starCursor.innerHTML = '⭐'; // You can use any emoji or HTML
+
+        document.addEventListener('mousemove', (e) => {
+            starCursor.style.left = (e.clientX - 16) + 'px';
+            starCursor.style.top = (e.clientY - 16) + 'px';
+            // Optional: add a little rotation for fun
+            starCursor.style.transform = `rotate(${e.clientX + e.clientY}deg)`;
+        });
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            audio.play().catch(() => {
+                // Autoplay was blocked, wait for user interaction
+                document.body.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
+            });
+        });
+        
+    </script>
+</body>
+</html>

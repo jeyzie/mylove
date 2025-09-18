@@ -1,0 +1,452 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffc8dd 40%, #bde0fe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .instructions {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .envelope {
+            position: relative;
+            width: 700px;
+            height: 470px;
+            margin: 40px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+        
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fabcd4;
+            border-radius: 8px;
+            z-index: 3;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #ff96bc;
+            clip-path: polygon(0 0, 100% 0, 50% 50%);
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.8s ease;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 60px;
+            font-size: 12rem;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } 
+
+        .envelope.open .stamp {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        
+        .envelope-content {
+            position: absolute;
+            width: 90%;
+            height: 85%;
+            background: #ffeb3b;
+            bottom: 5%;
+            left: 5%;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .letter {
+            zoom: 85%;
+            position: absolute;
+            width: 800px;
+            max-width: 1000px;
+            background: rgb(255, 206, 206);
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.8s ease;
+            z-index: 10;
+            opacity: 0;
+        }
+        
+        .letter.visible {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            z-index: 11;
+        }
+        
+        .letter-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #080606;
+        }
+        
+        .letter-header h2 {
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        
+        .letter-date {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .letter-body {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        
+        .letter-body p {
+            margin-bottom: 25px;
+            text-align: justify;
+            font-size: 1.3rem;
+        }
+        
+        .letter-signature {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ff3737;
+            margin-top: 35px;
+        }
+        
+        .sender-details {
+            margin-top: 35px;
+            margin-right: 20px;
+            text-align: right;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #f66363;
+        }
+        
+        .btn-close {
+            background: #500ea6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .btn-close:hover {
+            background: #bc9ff9;
+        }
+
+
+        .btn-print {
+            background: #500ea6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .btn-print:hover {
+            background: #bc9ff9;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100vw;
+                padding: 0 5vw;
+            }
+            .envelope {
+                width: 90vw;
+                max-width: 320px;
+                height: 200px;
+                margin: 20px auto;
+            }
+            .letter {
+                width: 98vw;
+                max-width: 340px;
+                padding: 12px;
+                font-size: 1rem;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            .letter.visible {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .letter-header h2 {
+                font-size: 1.3rem;
+            }
+            .letter-body p {
+                font-size: 1rem;
+                margin-bottom: 14px;
+            }
+            .signature {
+                font-size: 1.2rem;
+            }
+            .sender-details {
+                font-size: 1rem;
+            }
+            .btn-close,
+            .btn-print {
+                padding: 8px 14px;
+                font-size: 0.9rem;
+            }
+            .music-player {
+                left: 0;
+                width: 98vw;
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+            #star-cursor {
+                font-size: 1.2rem;
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+@media print {
+    @page {
+        margin: 0 !important;
+        size: auto;
+    }
+    
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+    }
+    
+    body * {
+        visibility: hidden;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .letter,
+    .letter * {
+        visibility: visible !important;
+    }
+    
+    .letter {
+        position: center !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 1px !important;
+        padding: 30px !important;
+        box-shadow: none !important;
+        border-radius: 20px !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    
+    .letter-body p {
+        margin-bottom: 26px !important;
+        text-align: justify !important;
+        font-size: 1.6rem !important;
+    }
+
+    .letter-header h2 {
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 1.9rem;
+        }
+    .btn-close, 
+    .btn-print {
+        display: none !important;
+    }
+
+    .letter {
+        position: center !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin:5px !important;
+        padding: 16px !important;
+    }
+
+    .signature {
+        font-size: 2.5rem !important;
+    }
+    .sender-details {
+        font-size: 1.8rem !important;
+    }
+    .love-message {
+        font-size: 1.5rem !important;
+        color: #ff3737;
+        margin-top: 20px;
+    }
+}
+
+
+.music-player {
+            background: rgba(127, 211, 251, 0.686);
+            border-radius: 15px;
+            position: absolute;
+            top: center;
+            right: 78%;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            backdrop-filter: blur(1px);
+            border: 1px solid rgb(255, 255, 255);
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .play-btn {
+            background: #500ea6;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .play-btn:hover {
+            background: #bc9ff9;
+            transform: scale(1.1);
+        }
+        
+        .progress-container {
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.3);
+            height: 6px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .progress {
+            background: #500ea6;
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            cursor: pointer;
+        }
+        
+        .song-info {
+            color: rgb(197, 33, 212);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .song-title {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .song-artist {
+            opacity: 0.8;
+        }
+        
+        /* Hide player when printing */
+        @media print {
+            .music-player {
+                display: none !important;
+            }
+        }
+
+        #star-cursor {
+    position: fixed;
+    pointer-events: none;
+    width: 32px;
+    height: 32px;
+    font-size: 2rem;
+    z-index: 9999;
+    transition: transform 0.1s;
+    /* You can use an emoji or a star SVG as background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body{cursor: none;}
+
+
+
